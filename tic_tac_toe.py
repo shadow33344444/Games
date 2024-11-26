@@ -22,12 +22,28 @@ def won(matrix): #Проверка на победу
                 return True
     return False
 
-def draw(won):
-    if won != True:
-        print("У вас ничья!")
-
+def draw(matrix):
+    for row in matrix:
+        if " " in row:
+            return False
+    print("У вас ничья!")
+    return True
 
 #Вывод поля
+# def board(matrix):
+#     a = [[],
+#          [],
+#          []]
+#     print('_' * 12)
+#     for i in range(3):
+#         string = ' ' + "1" + ' ' + "|" + ' ' + "1" + ' ' + "|" + ' ' + "1" + ' ' + "|"
+#         a[i] = string
+#     for i in range(3):
+#         for j in range(3):
+#             a[i] = a[i].replace("1", matrix[i][j], 1)
+#     print(*a, sep='\n')
+#     print("-" * 12)
+#     return ''
 def board(matrix):
     a = [[],
          [],
@@ -47,6 +63,8 @@ def board(matrix):
     print("-" * 12)
     return ''
 
+
+
 def pomenyat_ZNACHENIE(matrix, q):
     a = int(input("Введите номер строки")) - 1
     b = int(input("Введите номер столбца")) - 1
@@ -55,18 +73,23 @@ def pomenyat_ZNACHENIE(matrix, q):
 
 
 #Начало игры(САМА ИГРА ТИПА РАБОТАЕТ ТУТ)
-q = ""
-c = 0
-board(matrix)
-while won(matrix) != True or draw(won) != True:
-    if c % 2 == 0:
-        q = "X"
-        print("Сейчас выводим Х")
-    else:
-        q = "O"
-        print("Сейчас выводим О")
-    pomenyat_ZNACHENIE(matrix, q)
-    won(matrix)
-    draw(won)
+def main():
+    symbol = "X"
+    move_count = 0
     board(matrix)
-    c += 1
+
+    while True:
+        print(f"Ход игрока с символом {symbol}")
+        pomenyat_ZNACHENIE(matrix, symbol)
+        board(matrix)
+        move_count += 1
+
+        if won(matrix):  # Победа
+            break
+        if draw(matrix):  # Ничья
+            break
+
+        # Переключение между X и O
+        symbol = "O" if symbol == "X" else "X"
+
+main()
