@@ -22,8 +22,9 @@ def won(matrix): #Проверка на победу
                 return True
     return False
 
-def draw():
-    pass
+def draw(won):
+    if won != True:
+        print("У вас ничья!")
 
 
 #Вывод поля
@@ -47,8 +48,8 @@ def board(matrix):
     return ''
 
 def pomenyat_ZNACHENIE(matrix, q):
-    a = int(input("Введите номер строки"))
-    b = int(input("Введите номер столбца"))
+    a = int(input("Введите номер строки")) - 1
+    b = int(input("Введите номер столбца")) - 1
     matrix[a][b] = q
     return ''
 
@@ -57,12 +58,15 @@ def pomenyat_ZNACHENIE(matrix, q):
 q = ""
 c = 0
 board(matrix)
-while won(matrix) != True:
+while won(matrix) != True or draw(won) != True:
     if c % 2 == 0:
         q = "X"
+        print("Сейчас выводим Х")
     else:
         q = "O"
+        print("Сейчас выводим О")
     pomenyat_ZNACHENIE(matrix, q)
     won(matrix)
+    draw(won)
     board(matrix)
     c += 1
